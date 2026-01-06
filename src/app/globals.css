@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f0518;
+  --foreground: #ffffff;
+
+  /* Primary Gradient Colors */
+  --gradient-start: #2e1065;
+  /* Deep Violet (Darker) */
+  --gradient-end: #0f0518;
+  /* Near Black */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary-lilac: #E0B0FF;
+  --color-primary-dark: #0f0518;
+}
+
+body {
+  background: linear-gradient(180deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: var(--foreground);
+  min-height: 100vh;
+  /* Prevent scroll chaining or bounce if needed, but default is usually fine */
+}
+
+/* Glassmorphism Utilities */
+.glass-container {
+  @apply bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl;
+}
+
+.glass-input {
+  @apply bg-black/20 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition-all;
+}
+
+.glass-button {
+  @apply bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl text-white transition-all backdrop-blur-md active:scale-95;
+}
