@@ -13,8 +13,13 @@ export const LoginCard: React.FC<LoginCardProps> = ({ onGoogleLogin, isLoading }
     return (
         <GlassContainer intensity="heavy" className="max-w-md w-full p-8 md:p-12 flex flex-col items-center text-center space-y-8 animate-fade-in-up">
             <div className="space-y-2">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary-lilac to-purple-900 rounded-3xl mx-auto flex items-center justify-center shadow-[0_0_30px_rgba(224,176,255,0.4)] mb-6">
-                    <Typography variant="h1" className="text-4xl">T</Typography>
+                <div className="mb-6">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src="/logo.png"
+                        alt="ToDAH Logo"
+                        className="w-40 h-auto mx-auto drop-shadow-[0_0_20px_rgba(224,176,255,0.4)]"
+                    />
                 </div>
                 <Typography variant="h2">Bem-vindo ao ToDAH</Typography>
                 <Typography variant="body" className="text-gray-400 text-sm max-w-xs mx-auto">

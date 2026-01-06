@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ToDAH</string>
+    <string name="title_activity_main">ToDAH</string>
+    <string name="package_name">com.todah.app</string>
+    <string name="custom_url_scheme">com.todah.app</string>
+</resources>
