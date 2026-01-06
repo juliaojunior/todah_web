@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'ToDAH',
   webDir: 'public',
   server: {
-    url: 'https://todah-web.vercel.app/login', // <--- SUBSTITUA PELO SEU LINK DO VERCEL
+    url: 'https://todah-web.vercel.app',
 
     cleartext: true
   }

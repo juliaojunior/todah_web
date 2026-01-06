@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, getUserProfile, googleProvider } from "@/lib/firebase";
-import { onAuthStateChanged, User as FirebaseUser, signInWithPopup, signOut as firebaseSignOut } from "firebase/auth";
+import { onAuthStateChanged, User as FirebaseUser, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut } from "firebase/auth";
 import { UserProfile } from "@/lib/types";
 
 interface AuthContextType {
@@ -25,6 +25,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Handle Redirect Result (Important for Mobile)
+        getRedirectResult(auth).catch((error) => {
+            console.error("Redirect login failed", error);
+            setLoading(false);
+        });
+
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
                 // Fetch extended profile
@@ -36,11 +42,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                     photoURL: profile?.photoURL || firebaseUser.photoURL || undefined
                 });
             } else {
-                // If we were guest, we might want to stay logged in? No, Firebase handles persistence.
-                // But guest mode is local state only usually.
-                // For simplicity, we'll reset user if firebase says no user.
-                // If guest mode was active, it's not a firebase user.
-                // We need to handle guest persistence if needed, but for now simple session.
                 if (user?.uid !== 'guest') {
                     setUser(null);
                 }
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const signInWithGoogle = async () => {
         try {
             setLoading(true);
-            await signInWithPopup(auth, googleProvider);
+            await signInWithRedirect(auth, googleProvider);
         } catch (error) {
             console.error("Login failed", error);
             setLoading(false);
