@@ -11,37 +11,39 @@ interface LoginCardProps {
 
 export const LoginCard: React.FC<LoginCardProps> = ({ onGoogleLogin, isLoading }) => {
     return (
-        <GlassContainer intensity="heavy" className="max-w-md w-full p-8 md:p-12 flex flex-col items-center text-center space-y-8 animate-fade-in-up">
-            <div className="space-y-2">
-                <div className="mb-6">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src="/logo.png"
-                        alt="ToDAH Logo"
-                        className="w-40 h-auto mx-auto drop-shadow-[0_0_20px_rgba(224,176,255,0.4)]"
-                    />
+        <GlassContainer intensity="heavy" className="max-w-xs w-full py-16 px-8 flex flex-col items-center text-center justify-between min-h-[600px] animate-fade-in-up">
+            <div className="flex-1 flex flex-col items-center justify-center w-full space-y-10">
+                <div className="space-y-6 flex flex-col items-center">
+                    <div className="mb-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src="/logo.png"
+                            alt="ToDAH Logo"
+                            className="w-48 h-auto mx-auto drop-shadow-[0_0_20px_rgba(224,176,255,0.4)]"
+                        />
+                    </div>
+                    <div className="space-y-4">
+                        <Typography variant="h2" className="text-3xl font-bold">Bem-vindo ao ToDAH</Typography>
+                        <Typography variant="body" className="text-gray-400 text-base leading-relaxed max-w-[260px] mx-auto">
+                            Ferramenta de adaptação de atividades escolares para neurodivergentes.
+                        </Typography>
+                    </div>
                 </div>
-                <Typography variant="h2">Bem-vindo ao ToDAH</Typography>
-                <Typography variant="body" className="text-gray-400 text-sm max-w-xs mx-auto">
-                    Ferramenta de adaptação de atividades escolares para neurodivergentes.
-                </Typography>
+
+                <div className="w-full pt-8">
+                    <Button
+                        variant="primary"
+                        className="w-full py-4 text-lg h-14"
+                        onClick={onGoogleLogin}
+                        disabled={isLoading}
+                        leftIcon={<LogIn className="w-6 h-6" />}
+                    >
+                        Entrar com Google
+                    </Button>
+                </div>
             </div>
 
-            <div className="w-full space-y-3">
-                <Button
-                    variant="primary"
-                    className="w-full py-4 text-base"
-                    onClick={onGoogleLogin}
-                    disabled={isLoading}
-                    leftIcon={<LogIn className="w-5 h-5" />}
-                >
-                    Entrar com Google
-                </Button>
-
-
-            </div>
-
-            <Typography variant="caption" className="text-xs text-white/20">
+            <Typography variant="caption" className="text-xs text-white/20 mt-8">
                 v2.0 • Antigravity Edition
             </Typography>
         </GlassContainer>
