@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.todah.app',
+  appId: 'com.todahs.app',
   appName: 'ToDAH',
   webDir: 'public',
   server: {
