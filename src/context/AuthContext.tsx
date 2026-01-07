@@ -1,8 +1,10 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, getUserProfile, googleProvider } from "@/lib/firebase";
-import { onAuthStateChanged, User as FirebaseUser, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut } from "firebase/auth";
+import { onAuthStateChanged, User as FirebaseUser, signInWithRedirect, getRedirectResult, signOut as firebaseSignOut, GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import { UserProfile } from "@/lib/types";
+import { Capacitor } from "@capacitor/core";
+import { FirebaseAuthentication } from "@capacitor-firebase/authentication";
 
 interface AuthContextType {
     user: UserProfile | null;
@@ -54,7 +56,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const signInWithGoogle = async () => {
         try {
             setLoading(true);
-            await signInWithRedirect(auth, googleProvider);
+            if (Capacitor.isNativePlatform()) {
+                const result = await FirebaseAuthentication.signInWithGoogle();
+                const credential = GoogleAuthProvider.credential(result.credential?.idToken);
+                await signInWithCredential(auth, credential);
+            } else {
+                await signInWithRedirect(auth, googleProvider);
+            }
         } catch (error) {
             console.error("Login failed", error);
             setLoading(false);
@@ -73,6 +81,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             if (user?.uid !== 'guest') {
                 await firebaseSignOut(auth);
+                if (Capacitor.isNativePlatform()) {
+                    await FirebaseAuthentication.signOut();
+                }
             }
             setUser(null);
         } catch (error) {

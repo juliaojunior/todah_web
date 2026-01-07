@@ -6,7 +6,11 @@ const config: CapacitorConfig = {
   webDir: 'public',
   server: {
     url: 'https://todah-web.vercel.app',
-
+    allowNavigation: [
+      'todah-web.vercel.app',
+      '*.todah-web.vercel.app',
+      'accounts.google.com'
+    ],
     cleartext: true
   }
 };
